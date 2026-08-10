@@ -1,50 +1,22 @@
-import Link from 'next/link';
+'use client';
 
-const alerts = [
-  { title: 'Şüpheli erişim', detail: 'Bilinmeyen yüz profili algılandı.', level: 'Yüksek' },
-  { title: 'Geçiş saati sapması', detail: 'Personel normal saat dışında erişim denemesi.', level: 'Orta' },
-  { title: 'Kamera bağlantısı', detail: 'Koridor kamerası stabil çalışıyor.', level: 'Düşük' },
-];
+import { useState } from 'react';
 
 export default function SecurityPage() {
+  const [count, setCount] = useState(0);
+
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-slate-100">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-emerald-400">Güvenlik Merkezi</p>
-            <h1 className="mt-2 text-3xl font-semibold">Canlı güvenlik durumu</h1>
-          </div>
-          <Link href="/" className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300">
-            Ana Sayfa
-          </Link>
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-          <section className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6">
-            <h2 className="text-xl font-semibold">Aktif olaylar</h2>
-            <div className="mt-6 space-y-3">
-              {alerts.map((alert) => (
-                <div key={alert.title} className="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-medium text-white">{alert.title}</h3>
-                    <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">{alert.level}</span>
-                  </div>
-                  <p className="mt-2 text-sm text-slate-400">{alert.detail}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <aside className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6">
-            <h2 className="text-xl font-semibold">Sistem durumu</h2>
-            <div className="mt-4 space-y-3 text-sm text-slate-300">
-              <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">AI model: Aktif</div>
-              <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">CCTV: 12/12 bağlı</div>
-              <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">Veritabanı: Bağlı</div>
-            </div>
-          </aside>
-        </div>
+    <main className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6">
+      <div className="max-w-2xl rounded-3xl border border-slate-800 bg-slate-900/90 p-10 text-center shadow-xl shadow-slate-950/20">
+        <h1 className="text-3xl font-semibold text-white">Veridora Güvenlik</h1>
+        <p className="mt-4 text-slate-400">Bu sayfa temiz bir UTF-8 kaynak dosyası ile yeniden oluşturuldu.</p>
+        <button
+          type="button"
+          onClick={() => setCount((value) => value + 1)}
+          className="mt-6 rounded-2xl bg-sky-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-400"
+        >
+          Tıklandı {count} kez
+        </button>
       </div>
     </main>
   );
