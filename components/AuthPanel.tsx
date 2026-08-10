@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import { useI18n } from '@/lib/i18n';
 
 export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: string }) {
+  const { t } = useI18n();
   const [email, setEmail] = useState('admin@veridora.dev');
   const [password, setPassword] = useState('admin123456');
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -15,7 +17,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
 
   useEffect(() => {
     if (!supabase) {
-      setMessage('Supabase ortam değişkenleri tanımlanmadı. .env.local dosyasını doldurunuz.');
+      setMessage(t('auth.missingEnv'));
       setSessionReady(true);
       return;
     }
@@ -56,7 +58,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
       if (error) {
         setMessage(error.message);
       } else {
-        setMessage('Giriş başarılı. Yönlendiriliyor...');
+          setMessage(t('auth.success'));
       }
     } else {
       const { error } = await supabase.auth.signUp({
@@ -69,7 +71,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
       if (error) {
         setMessage(error.message);
       } else {
-        setMessage('Hesap oluşturuldu. E-posta onayı gerekebilir.');
+        setMessage(t('auth.created'));
       }
     }
 
@@ -77,7 +79,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
   };
 
   if (!sessionReady) {
-    return <div className="text-sm text-slate-400">Oturum kontrol ediliyor...</div>;
+    return <div className="text-sm text-slate-400">{t('auth.checkingSession')}</div>;
   }
 
   return (
@@ -88,19 +90,19 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
           onClick={() => setMode('signin')}
           className={`flex-1 rounded-full px-3 py-2 text-sm ${mode === 'signin' ? 'bg-sky-500 text-white' : 'text-slate-300'}`}
         >
-          Giriş Yap
+          {t('auth.signin')}
         </button>
         <button
           type="button"
           onClick={() => setMode('signup')}
           className={`flex-1 rounded-full px-3 py-2 text-sm ${mode === 'signup' ? 'bg-sky-500 text-white' : 'text-slate-300'}`}
         >
-          Kayıt Ol
+          {t('auth.signup')}
         </button>
       </div>
 
       <div>
-        <label className="mb-2 block text-sm text-slate-300">E-posta</label>
+        <label className="mb-2 block text-sm text-slate-300">{t('auth.email')}</label>
         <input
           value={email}
           onChange={(event) => setEmail(event.target.value)}
@@ -111,7 +113,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
         />
       </div>
       <div>
-        <label className="mb-2 block text-sm text-slate-300">Parola</label>
+        <label className="mb-2 block text-sm text-slate-300">{t('auth.password')}</label>
         <input
           value={password}
           onChange={(event) => setPassword(event.target.value)}
@@ -126,7 +128,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
       {message ? <p className="text-sm text-slate-300">{message}</p> : null}
 
       <button disabled={loading} className="w-full rounded-xl bg-sky-500 px-4 py-3 text-sm font-medium text-white disabled:opacity-60">
-        {loading ? 'İşleniyor...' : mode === 'signin' ? 'Giriş Yap' : 'Hesap Oluştur'}
+        {loading ? t('auth.processing') : mode === 'signin' ? t('auth.signin') : t('auth.createAccount')}
       </button>
     </form>
   );

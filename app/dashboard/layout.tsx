@@ -1,13 +1,15 @@
-'use client';
+"use client";
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import { useI18n } from '@/lib/i18n';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isAuthed, setIsAuthed] = useState<boolean | null>(null);
   const router = useRouter();
+  const { t } = useI18n();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -44,10 +46,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-sky-400">Veridora</p>
-            <p className="text-sm text-slate-400">Yönetici kontrol paneli</p>
+            <p className="text-sm text-slate-400">{t('dashboard.header')}</p>
           </div>
           <div className="flex gap-3">
-            <Link href="/security" className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300">Güvenlik</Link>
+            <Link href="/security" className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300">{t('security')}</Link>
             <button
               onClick={async () => {
                 await supabase.auth.signOut();
@@ -55,7 +57,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               }}
               className="rounded-full bg-slate-800 px-4 py-2 text-sm text-slate-200"
             >
-              Çıkış Yap
+              {t('logout')}
             </button>
           </div>
         </div>
