@@ -41,4 +41,15 @@
   "security.description": "This page is rebuilt with a clean UTF-8 source file.",
   "clicked": "Clicked",
   "times": "times"
+  ,
+  "auth.placeholder.email": "admin@veridora.dev",
+  "auth.placeholder.password": "Password",
+  "ipLookup": "IP Lookup",
+  "search": "Search",
+  "security.sqlInjection": "SQL Injection",
+  "status.on": "ON",
+  "sqlInjections": "SQL Injections",
+  "daily.entry1": "08:10 - Ahmet Y. entry approved",
+  "daily.entry2": "09:45 - Zeynep K. temporary access request",
+  "daily.entry3": "11:20 - Security alert: unexpected movement"
 }

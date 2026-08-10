@@ -41,4 +41,15 @@
   "security.description": "Bu sayfa temiz bir UTF-8 kaynak dosyası ile yeniden oluşturuldu.",
   "clicked": "Tıklandı",
   "times": "kez"
+  ,
+  "auth.placeholder.email": "admin@veridora.dev",
+  "auth.placeholder.password": "Parola",
+  "ipLookup": "IP Araştırma",
+  "search": "Ara",
+  "security.sqlInjection": "SQL Injection",
+  "status.on": "AÇIK",
+  "sqlInjections": "SQL Enjeksiyonları",
+  "daily.entry1": "08:10 - Ahmet Y. giriş onaylandı",
+  "daily.entry2": "09:45 - Zeynep K. geçici erişim talebi",
+  "daily.entry3": "11:20 - Güvenlik uyarısı: beklenmeyen hareket"
 }

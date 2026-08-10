@@ -46,7 +46,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!supabase) {
-      setMessage('Supabase yapılandırması eksik.');
+      setMessage(t('auth.missingEnv'));
       return;
     }
 
@@ -107,7 +107,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm outline-none"
-          placeholder="admin@veridora.dev"
+          placeholder={t('auth.placeholder.email')}
           type="email"
           required
         />
@@ -118,7 +118,7 @@ export default function AuthPanel({ redirectTo = '/dashboard' }: { redirectTo?: 
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm outline-none"
-          placeholder="••••••••"
+          placeholder={t('auth.placeholder.password')}
           type="password"
           required
           minLength={6}

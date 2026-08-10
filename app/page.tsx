@@ -51,8 +51,8 @@ export default function HomePage() {
             <p className="mb-4 text-xs uppercase tracking-[0.3em] text-slate-500">{t("security")}</p>
             <nav className="space-y-2 text-sm">
               <div className="flex items-center justify-between rounded-2xl bg-slate-900/80 px-4 py-3 text-slate-200">
-                <span>SQL Injection</span>
-                <span className="rounded-full bg-emerald-500 px-2 py-0.5 text-[11px] uppercase tracking-[0.2em] text-emerald-950">on</span>
+                <span>{t('security.sqlInjection')}</span>
+                <span className="rounded-full bg-emerald-500 px-2 py-0.5 text-[11px] uppercase tracking-[0.2em] text-emerald-950">{t('status.on')}</span>
               </div>
             </nav>
           </div>
@@ -65,8 +65,8 @@ export default function HomePage() {
               <p className="mt-2 text-sm text-slate-400">{t("dashboard.subtitle")}</p>
             </div>
             <div className="flex items-center gap-3 rounded-2xl bg-slate-950/90 px-4 py-3 text-sm text-slate-300">
-              <span>IP Lookup</span>
-              <button className="rounded-2xl bg-slate-800 px-3 py-2 text-slate-200">Ara</button>
+              <span>{t('ipLookup')}</span>
+              <button className="rounded-2xl bg-slate-800 px-3 py-2 text-slate-200">{t('search')}</button>
             </div>
           </header>
 
@@ -104,7 +104,7 @@ export default function HomePage() {
 
             <div className="grid gap-4">
               <div className="rounded-3xl border border-slate-800 bg-slate-950/90 p-6 text-center">
-                <p className="text-sm uppercase tracking-[0.2em] text-slate-400">SQL Injections</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-400">{t('sqlInjections')}</p>
                 <p className="mt-4 text-4xl font-semibold text-white">13</p>
               </div>
             </div>

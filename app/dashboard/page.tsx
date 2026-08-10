@@ -37,11 +37,11 @@ export default function DashboardPage() {
             <h2 className="text-xl font-semibold">{t('daily.flow')}</h2>
             <p className="mt-2 text-sm text-slate-400">{t('daily.description')}</p>
             <div className="mt-6 space-y-3">
-              {['08:10 - Ahmet Y. giriş onaylandı', '09:45 - Zeynep K. geçici erişim talebi', '11:20 - Güvenlik uyarısı: beklenmeyen hareket'].map((entry) => (
-                <div key={entry} className="rounded-xl border border-slate-800 bg-slate-950/70 p-3 text-sm text-slate-300">
-                  {entry}
-                </div>
-              ))}
+                {[t('daily.entry1'), t('daily.entry2'), t('daily.entry3')].map((entry) => (
+                  <div key={entry} className="rounded-xl border border-slate-800 bg-slate-950/70 p-3 text-sm text-slate-300">
+                    {entry}
+                  </div>
+                ))}
             </div>
           </section>
 
