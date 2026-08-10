@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { useI18n } from "../lib/i18n";
 
@@ -12,8 +14,8 @@ export default function HomePage() {
           <div className="mb-10 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-800 text-sky-400">S</div>
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Project</p>
-              <h1 className="text-xl font-semibold">SECURITY</h1>
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">{t('branding.subtitle')}</p>
+              <h1 className="text-xl font-semibold">{t('branding.title')}</h1>
             </div>
             <div className="ml-auto">
               <select
