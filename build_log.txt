@@ -1,0 +1,26 @@
+  ▲ Next.js 14.2.15
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+
+<--- Last few GCs --->
+
+[19048:00000205BA9B4000]     3695 ms: Scavenge (interleaved) 40.3 (49.6) -> 36.0 (67.8) MB, pooled: 0 MB, 8.50 / 0.00 ms  (average mu = 0.997, current mu = 0.997) allocation failure; 
+[19048:00000205BA9B4000]     3751 ms: Mark-Compact 36.8 (67.8) -> 34.2 (69.1) MB, pooled: 0 MB, 4.87 / 0.00 ms  (+ 0.2 ms in 3 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 29 ms) (average mu = 0.997, current mu = 0.99
+FATAL ERROR: MarkCompactCollector: young object promotion failed Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 00007FF6AACB48DF node::OnFatalError+1343
+ 2: 00007FF6A98FDCB7 v8::Function::NewInstance+423
+ 3: 00007FF6A96FE4F7 uv_udp_get_send_queue_count+54423
+ 4: 00007FF6A96DDBEE v8::base::AddressSpaceReservation::AddressSpaceReservation+189726
+ 5: 00007FF6A96D32AD v8::base::AddressSpaceReservation::AddressSpaceReservation+146397
+ 6: 00007FF6A96D2F5C v8::base::AddressSpaceReservation::AddressSpaceReservation+145548
+ 7: 00007FF6A96D2BA1 v8::base::AddressSpaceReservation::AddressSpaceReservation+144593
+ 8: 00007FF6A96E5098 v8::base::AddressSpaceReservation::AddressSpaceReservation+219592
+ 9: 00007FF6AA0D6C6F v8::platform::DefaultJobHandle::UpdatePriority+591
+10: 00007FF6AABF9DBB node::GetNodeReport+92891
+11: 00007FF6A9952D76 uv_thread_detach+150
+12: 00007FF6AAFFEB73 node::AsyncResource::CallbackScope::CallbackScope+2296963
+13: 00007FFBCD29E957 BaseThreadInitThunk+23
+14: 00007FFBCE667C1C RtlUserThreadStart+44
