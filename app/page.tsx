@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function DashboardPage() {
   return (
-    <div className="flex min-h-screen bg-[#0b0f19] text-slate-100">
+    <div className="flex min-h-screen bg-[#0b0f19] text-slate-100 font-sans">
       {/* Sol Menü / Sidebar */}
       <aside className="w-64 border-r border-slate-800/80 bg-[#0d121f] p-6 flex flex-col justify-between hidden md:flex">
         <div className="space-y-8">
@@ -56,28 +56,31 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* 4 Renkli Kart */}
+        {/* Renkli 4 Kart (Tıklanabilir Butonlar) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-5 rounded-2xl bg-sky-500 text-slate-950 font-sans shadow-lg shadow-sky-500/10">
+          <Link href="/attendance" className="p-5 rounded-2xl bg-[#00a8ff] text-slate-950 shadow-lg cursor-pointer block hover:opacity-90 transition">
             <p className="text-3xl font-black">124</p>
             <p className="text-xs font-bold mt-1 opacity-90">Çalışan Sayısı</p>
             <p className="text-[10px] mt-3 font-semibold opacity-75">+8%</p>
-          </div>
-          <div className="p-5 rounded-2xl bg-emerald-500 text-slate-950 font-sans shadow-lg shadow-emerald-500/10">
+          </Link>
+
+          <Link href="/attendance" className="p-5 rounded-2xl bg-[#00d26a] text-slate-950 shadow-lg cursor-pointer block hover:opacity-90 transition">
             <p className="text-3xl font-black">86</p>
             <p className="text-xs font-bold mt-1 opacity-90">Şu An İçerde</p>
             <p className="text-[10px] mt-3 font-semibold uppercase tracking-wider opacity-75">ON SITE</p>
-          </div>
-          <div className="p-5 rounded-2xl bg-amber-500 text-slate-950 font-sans shadow-lg shadow-amber-500/10">
+          </Link>
+
+          <Link href="/attendance" className="p-5 rounded-2xl bg-[#ff9f00] text-slate-950 shadow-lg cursor-pointer block hover:opacity-90 transition">
             <p className="text-3xl font-black">4</p>
             <p className="text-xs font-bold mt-1 opacity-90">Geç Gelen</p>
             <p className="text-[10px] mt-3 font-semibold uppercase tracking-wider opacity-75">TODAY</p>
-          </div>
-          <div className="p-5 rounded-2xl bg-purple-500 text-slate-950 font-sans shadow-lg shadow-purple-500/10">
+          </Link>
+
+          <Link href="/access" className="p-5 rounded-2xl bg-[#9b51e0] text-slate-950 shadow-lg cursor-pointer block hover:opacity-90 transition">
             <p className="text-3xl font-black">7</p>
             <p className="text-xs font-bold mt-1 opacity-90">Bekleyen İzin</p>
             <p className="text-[10px] mt-3 font-semibold uppercase tracking-wider opacity-75">AWAITING REVIEW</p>
-          </div>
+          </Link>
         </div>
 
         {/* Alt İçerikler */}
@@ -112,9 +115,9 @@ export default function DashboardPage() {
 
           <div className="bg-[#111726]/60 border border-slate-800 rounded-2xl p-5 space-y-3">
             <h3 className="font-bold text-white mb-2">Hızlı İşlemler</h3>
-            <button className="w-full py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs rounded-xl transition">Giriş Kaydı</button>
-            <button className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl border border-slate-700 transition">Ziyaretçi Kartı</button>
-            <button className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl border border-slate-700 transition">İzin Onayla</button>
+            <Link href="/attendance" className="block w-full py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs rounded-xl transition text-center">Giriş Kaydı</Link>
+            <Link href="/visitors" className="block w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl border border-slate-700 transition text-center">Ziyaretçi Kartı</Link>
+            <Link href="/access" className="block w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl border border-slate-700 transition text-center">İzin Onayla</Link>
           </div>
         </div>
       </main>
