@@ -1,379 +1,186 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 
-const translations = {
-  tr: {
-    project: 'PROJE',
-    brand: 'VERIDORA',
-    subtitle: 'Personel giriş/çıkış ve erişim takibi',
-    account: 'Hesap',
-    logout: 'Çıkış',
-    navigation: 'Menü',
-    dashboard: 'Ana Sayfa',
-    attendance: 'Giriş/Çıkış',
-    access: 'Erişim Onayı',
-    visitors: 'Ziyaretçiler',
-    reports: 'Raporlar',
-    settings: 'Ayarlar',
-    language: 'Dil',
-    today: 'Bugün',
-    activeEmployees: 'Çalışan Sayısı',
-    onsiteNow: 'Şu An İçerde',
-    lateArrivals: 'Geç Gelen',
-    pendingAccess: 'Bekleyen İzin',
-    quickActions: 'Hızlı İşlemler',
-    checkIn: 'Giriş Kaydı',
-    visitorPass: 'Ziyaretçi Kartı',
-    approveAccess: 'İzin Onayla',
-    exportReport: 'Rapor Dışa Aktar',
-    staffActivity: 'Personel Aktivitesi',
-    search: 'Ara',
-    status: 'Durum',
-    role: 'Görev',
-    time: 'Saat',
-    accessQueue: 'Erişim Kuyruğu',
-    reason: 'Sebep',
-    pending: 'Bekliyor',
-    approved: 'Onaylandı',
-    no: 'Hayır',
-    yes: 'Evet',
-    todaySummary: 'Gün Özeti',
-    openGate: 'Kapı Aç',
-    secureArea: 'Güvenli Alan',
-    entryLog: 'Giriş Kayıtları',
-    welcome: 'Hoş geldiniz',
-    todayShift: 'Bugünkü vardiya',
-    shiftTime: '08:00 - 17:00',
-    currentUser: 'İbrahim Demir',
-    location: 'Merkez Bina',
-  },
-  en: {
-    project: 'PROJECT',
-    brand: 'VERIDORA',
-    subtitle: 'Employee entry/exit and access tracking',
-    account: 'Account',
-    logout: 'Logout',
-    navigation: 'Menu',
-    dashboard: 'Dashboard',
-    attendance: 'Attendance',
-    access: 'Access Requests',
-    visitors: 'Visitors',
-    reports: 'Reports',
-    settings: 'Settings',
-    language: 'Language',
-    today: 'Today',
-    activeEmployees: 'Active Employees',
-    onsiteNow: 'On Site Now',
-    lateArrivals: 'Late Arrivals',
-    pendingAccess: 'Pending Access',
-    quickActions: 'Quick Actions',
-    checkIn: 'Check In',
-    visitorPass: 'Visitor Pass',
-    approveAccess: 'Approve Access',
-    exportReport: 'Export Report',
-    staffActivity: 'Staff Activity',
-    search: 'Search',
-    status: 'Status',
-    role: 'Role',
-    time: 'Time',
-    accessQueue: 'Access Queue',
-    reason: 'Reason',
-    pending: 'Pending',
-    approved: 'Approved',
-    no: 'No',
-    yes: 'Yes',
-    todaySummary: 'Today Summary',
-    openGate: 'Open Gate',
-    secureArea: 'Secure Area',
-    entryLog: 'Entry Log',
-    welcome: 'Welcome',
-    todayShift: 'Today shift',
-    shiftTime: '08:00 - 17:00',
-    currentUser: 'Ibrahim Demir',
-    location: 'Main Building',
-  },
-};
-
 export default function HomePage() {
-  const [lang, setLang] = useState<'tr' | 'en'>('tr');
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
-  const t = translations[lang];
-
-  const navItems = [
-    { label: t.dashboard, icon: '📊', href: '/' },
-    { label: t.attendance, icon: '🗓️', href: '/attendance' },
-    { label: t.access, icon: '🔐', href: '/access' },
-    { label: t.visitors, icon: '👥', href: '/visitors' },
-    { label: t.reports, icon: '📈', href: '/reports' },
-    { label: t.settings, icon: '⚙️', href: '/settings' },
-  ];
-
-  const [activeEmployees, setActiveEmployees] = useState(124);
-  const [onsiteNow, setOnsiteNow] = useState(86);
-  const [lateArrivals, setLateArrivals] = useState(4);
-  const [pendingAccess, setPendingAccess] = useState(7);
-
-  const [activityRows, setActivityRows] = useState([
-    { name: 'Ahmet Yılmaz', role: 'Operasyon', status: 'Giriş onaylandı', time: '08:12', badge: 'On site' },
-    { name: 'Elif Aras', role: 'Muhasebe', status: 'Çıkış kaydı', time: '17:05', badge: 'Completed' },
-    { name: 'Murat Korkmaz', role: 'Teknik', status: 'Geç giriş', time: '08:41', badge: 'Late' },
+  // Örnek istek verileri
+  const [requests, setRequests] = useState([
+    {
+      id: 1,
+      name: 'Merve Demir',
+      role: 'Yazılım Geliştirici',
+      zone: 'Ana Bina (B Blok Giriş)',
+      time: 'Bugün, 09:45 AM',
+      initials: 'M',
+    },
+    {
+      id: 2,
+      name: 'Caner Şahin',
+      role: 'Sistem Yöneticisi',
+      zone: 'Sunucu Odası (D Blok)',
+      time: 'Bugün, 09:20 AM',
+      initials: 'C',
+    },
+    {
+      id: 3,
+      name: 'Selin Yılmaz',
+      role: 'İnsan Kaynakları',
+      zone: 'VIP Salonu (A Blok)',
+      time: 'Dün, 16:15 PM',
+      initials: 'S',
+    },
   ]);
 
-  const [accessQueue, setAccessQueue] = useState([
-    { name: 'Deniz Çelik', reason: 'Müşteri ziyareti', state: t.pending },
-    { name: 'Seda Kuru', reason: 'Depo erişimi', state: t.approved },
-  ]);
+  const [approvedCount, setApprovedCount] = useState(42);
+  const [deniedCount, setDeniedCount] = useState(3);
 
-  const [showVisitorAlert, setShowVisitorAlert] = useState(false);
-  const [showExportAlert, setShowExportAlert] = useState(false);
-
-  const stats = [
-    { label: t.activeEmployees, value: activeEmployees.toString(), note: '+8%', tone: 'from-cyan-500 to-sky-500', href: '/attendance' },
-    { label: t.onsiteNow, value: onsiteNow.toString(), note: 'On site', tone: 'from-emerald-500 to-green-500', href: '/access' },
-    { label: t.lateArrivals, value: lateArrivals.toString(), note: 'Today', tone: 'from-amber-500 to-yellow-500', href: '/attendance' },
-    { label: t.pendingAccess, value: pendingAccess.toString(), note: 'Awaiting review', tone: 'from-fuchsia-500 to-purple-500', href: '/access' },
-  ];
-
-  const handleCheckIn = () => {
-    const timestamp = new Date();
-    const newEntry = {
-      name: 'Yeni Çalışan',
-      role: 'Üretim',
-      status: 'Giriş kaydı',
-      time: `${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`,
-      badge: 'On site',
-    };
-    setActivityRows([newEntry, ...activityRows]);
-    setActiveEmployees(activeEmployees + 1);
-    setOnsiteNow(onsiteNow + 1);
+  // Onayla / Reddet İşlemleri
+  const handleApprove = (id: number) => {
+    setRequests(requests.filter((r) => r.id !== id));
+    setApprovedCount((prev) => prev + 1);
   };
 
-  const handleVisitorPass = () => {
-    if (!accessQueue.some((item) => item.name === 'Ziyaretçi')) {
-      setAccessQueue([{ name: 'Ziyaretçi', reason: 'Geçici ziyaret', state: t.pending }, ...accessQueue]);
-    }
-    setShowVisitorAlert(true);
-    setTimeout(() => setShowVisitorAlert(false), 3000);
-  };
-
-  const handleApproveAccess = () => {
-    const nextPending = accessQueue.findIndex((item) => item.state === t.pending);
-    if (nextPending !== -1) {
-      const updatedQueue = [...accessQueue];
-      updatedQueue[nextPending] = { ...updatedQueue[nextPending], state: t.approved };
-      setAccessQueue(updatedQueue);
-      setPendingAccess(Math.max(0, pendingAccess - 1));
-      setShowExportAlert(false);
-      return;
-    }
-    setShowVisitorAlert(false);
-  };
-
-  const handleExportReport = () => {
-    setShowExportAlert(true);
-    setTimeout(() => setShowExportAlert(false), 3000);
+  const handleDeny = (id: number) => {
+    setRequests(requests.filter((r) => r.id !== id));
+    setDeniedCount((prev) => prev + 1);
   };
 
   return (
-    <main className="min-h-screen bg-[#07111f] text-slate-100">
-      <div className="grid min-h-screen grid-cols-[280px_1fr]">
-        <aside className="border-r border-slate-800 bg-slate-950/95 p-6">
-          <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-500/20 text-sky-400">V</div>
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">{t.project}</p>
-              <h1 className="text-xl font-semibold text-white">{t.brand}</h1>
-              <p className="text-sm text-slate-400">{t.subtitle}</p>
-            </div>
-          </div>
-
-
+    <main className="min-h-screen bg-[#0b0f17] text-slate-100 p-6 md:p-10 font-sans">
+      <div className="mx-auto max-w-7xl space-y-6">
+        
+        {/* Üst Başlık Alanı */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 rounded-2xl border border-slate-800 bg-[#111726]/80 p-6 backdrop-blur">
           <div>
-            <p className="mb-4 text-[11px] uppercase tracking-[0.3em] text-slate-500">{t.navigation}</p>
-            <nav className="space-y-2 text-sm">
-              {navItems.map((item) => (
-                <Link key={item.label} href={item.href} className={`flex items-center gap-3 rounded-2xl px-4 py-3 ${item.href === '/' ? 'bg-sky-500/10 text-sky-300' : 'text-slate-300 hover:bg-slate-900/80'}`}>
-                  <span>{item.icon}</span>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+            <p className="text-xs font-bold tracking-widest text-sky-400 uppercase">
+              VERİDORA AI GÜVENLİK YÖNETİMİ
+            </p>
+            <h1 className="mt-1 text-2xl md:text-3xl font-extrabold text-white">
+              Erişim Yönetimi: Bekleyen Personel Giriş İstekleri
+            </h1>
+            <p className="mt-1 text-sm text-slate-400">
+              Bekleyen personel erişim isteklerini inceleyin ve hızlıca onaylayın veya reddedin.
+            </p>
           </div>
-        </aside>
+        </div>
 
-        <section className="bg-[#0f172a] p-6 lg:p-8">
-          <header className="mb-6 flex flex-col gap-4 rounded-3xl border border-slate-800 bg-slate-950/90 p-5 lg:flex-row lg:items-center lg:justify-between">
+        {/* 4'lü Sayaç Kartları */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-[#111726]/80 border border-slate-800 rounded-2xl p-5 flex items-center gap-4">
+            <div className="p-3 bg-amber-500/10 text-amber-400 rounded-xl font-bold text-xl">⏳</div>
             <div>
-              <p className="text-sm text-slate-400">{t.welcome}, {t.currentUser}</p>
-              <h2 className="mt-1 text-2xl font-semibold text-white">{t.today} · {t.location}</h2>
+              <p className="text-xs text-slate-400 font-medium">Bekleyen İstekler</p>
+              <p className="text-2xl font-bold text-amber-400 mt-0.5">{requests.length}</p>
+              <p className="text-[11px] text-slate-500">İşlem Bekleyen İstekler</p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="flex items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 text-sm text-slate-300">
-                <span>{t.todayShift}</span>
-                <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-emerald-300">{t.shiftTime}</span>
-              </div>
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setLangMenuOpen((open) => !open)}
-                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-800 bg-slate-900/80 text-lg text-slate-200 hover:bg-slate-900"
-                >
-                  {lang === 'tr' ? '🇹🇷' : '🇺🇸'}
-                </button>
-                {langMenuOpen && (
-                  <div className="absolute right-0 z-20 mt-2 w-40 rounded-3xl border border-slate-800 bg-slate-950/95 p-2 shadow-xl shadow-black/30">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setLang('tr');
-                        setLangMenuOpen(false);
-                      }}
-                      className="flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm text-slate-100 hover:bg-slate-900"
-                    >
-                      <span>🇹🇷</span>
-                      Türkçe
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setLang('en');
-                        setLangMenuOpen(false);
-                      }}
-                      className="flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm text-slate-100 hover:bg-slate-900"
-                    >
-                      <span>🇺🇸</span>
-                      English
-                    </button>
-                  </div>
-                )}
-              </div>
-              <Link href="/login" className="rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 text-sm text-slate-300 hover:bg-slate-900 text-center">
-                {t.account}
-              </Link>
-              <Link href="/login" className="rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 text-sm text-slate-300 hover:bg-slate-900 text-center">
-                {t.logout}
-              </Link>
-            </div>
-          </header>
-
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {stats.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`group rounded-3xl bg-gradient-to-br ${item.tone} p-5 text-white shadow-lg transition duration-200 hover:scale-[1.01] hover:shadow-2xl`}
-              >
-                <p className="text-3xl font-semibold">{item.value}</p>
-                <p className="mt-2 text-sm opacity-90">{item.label}</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.2em] opacity-80">{item.note}</p>
-              </Link>
-            ))}
           </div>
 
-          <div className="mt-6 grid gap-6 xl:grid-cols-[1.7fr_1fr]">
-            <article className="rounded-3xl border border-slate-800 bg-slate-950/90 p-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-white">{t.staffActivity}</h3>
-                  <p className="text-sm text-slate-400">{t.entryLog}</p>
-                </div>
-                <Link href="/reports" className="rounded-2xl border border-slate-700 px-3 py-2 text-sm text-slate-300 hover:bg-slate-900/80">{t.search}</Link>
-              </div>
+          <div className="bg-[#111726]/80 border border-slate-800 rounded-2xl p-5 flex items-center gap-4">
+            <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl font-bold text-xl">✓</div>
+            <div>
+              <p className="text-xs text-slate-400 font-medium">Bugünkü Onaylar</p>
+              <p className="text-2xl font-bold text-emerald-400 mt-0.5">{approvedCount}</p>
+              <p className="text-[11px] text-slate-500">Tamamlanan İstekler</p>
+            </div>
+          </div>
 
-              <div className="mt-4 overflow-hidden rounded-2xl border border-slate-800">
-                <table className="min-w-full text-sm text-slate-300">
-                  <thead className="bg-slate-900/80 text-left text-slate-400">
-                    <tr>
-                      <th className="px-4 py-3">{t.role}</th>
-                      <th className="px-4 py-3">{t.status}</th>
-                      <th className="px-4 py-3">{t.time}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {activityRows.map((row) => (
-                      <tr key={row.name} className="border-t border-slate-800">
-                        <td className="px-4 py-3">
-                          <div className="font-medium text-white">{row.name}</div>
-                          <div className="text-xs text-slate-500">{row.role}</div>
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="rounded-full bg-slate-800 px-2.5 py-1 text-xs text-slate-200">{row.status}</span>
-                        </td>
-                        <td className="px-4 py-3">{row.time}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </article>
+          <div className="bg-[#111726]/80 border border-slate-800 rounded-2xl p-5 flex items-center gap-4">
+            <div className="p-3 bg-rose-500/10 text-rose-400 rounded-xl font-bold text-xl">✕</div>
+            <div>
+              <p className="text-xs text-slate-400 font-medium">Reddedilen İstekler</p>
+              <p className="text-2xl font-bold text-rose-400 mt-0.5">{deniedCount}</p>
+              <p className="text-[11px] text-slate-500">İptal Edilen İstekler</p>
+            </div>
+          </div>
 
-            <div className="space-y-4">
-              <article className="rounded-3xl border border-slate-800 bg-slate-950/90 p-5">
-                <h3 className="text-lg font-semibold text-white">{t.quickActions}</h3>
-                <div className="mt-4 space-y-3">
-                  <button
-                    onClick={handleCheckIn}
-                    className="w-full rounded-2xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-sky-400"
-                  >
-                    {t.checkIn}
-                  </button>
-                  <button
-                    onClick={handleVisitorPass}
-                    className="w-full rounded-2xl border border-slate-700 px-4 py-3 text-sm text-slate-300 transition hover:border-slate-600 hover:text-white"
-                  >
-                    {t.visitorPass}
-                  </button>
-                  <button
-                    onClick={handleApproveAccess}
-                    className="w-full rounded-2xl border border-slate-700 px-4 py-3 text-sm text-slate-300 transition hover:border-slate-600 hover:text-white"
-                  >
-                    {t.approveAccess}
-                  </button>
-                  <button
-                    onClick={handleExportReport}
-                    className="w-full rounded-2xl border border-slate-700 px-4 py-3 text-sm text-slate-300 transition hover:border-slate-600 hover:text-white"
-                  >
-                    {t.exportReport}
-                  </button>
-                </div>
-                {showVisitorAlert && (
-                  <div className="mt-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
-                    Ziyaretçi kaydı kuyruğa eklendi.
-                  </div>
-                )}
-                {showExportAlert && (
-                  <div className="mt-4 rounded-2xl border border-sky-500/30 bg-sky-500/10 px-4 py-3 text-sm text-sky-200">
-                    Rapor başarıyla dışa aktarılıyor...
-                  </div>
-                )}
-              </article>
+          <div className="bg-[#111726]/80 border border-slate-800 rounded-2xl p-5 flex items-center gap-4">
+            <div className="p-3 bg-sky-500/10 text-sky-400 rounded-xl font-bold text-xl">📄</div>
+            <div>
+              <p className="text-xs text-slate-400 font-medium">Erişim Logları</p>
+              <p className="text-2xl font-bold text-sky-400 mt-0.5">235</p>
+              <p className="text-[11px] text-slate-500">Son 24 Saatlik Kayıt</p>
+            </div>
+          </div>
+        </div>
 
-              <article className="rounded-3xl border border-slate-800 bg-slate-950/90 p-5">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-white">{t.accessQueue}</h3>
-                  <span className="text-sm text-slate-400">{t.todaySummary}</span>
-                </div>
-                <div className="mt-4 space-y-3">
-                  {accessQueue.map((item) => (
-                    <div key={item.name} className="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium text-white">{item.name}</p>
-                          <p className="text-sm text-slate-400">{item.reason}</p>
+        {/* Tablo Alanı */}
+        <div className="rounded-2xl border border-slate-800 bg-[#111726]/80 p-6 backdrop-blur">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div>
+              <h2 className="text-lg font-bold text-white">İstekler Listesi</h2>
+              <p className="text-xs text-slate-400">Bekleyen personel erişim istekleri detaylı tablosu.</p>
+            </div>
+            
+            <input 
+              type="text" 
+              placeholder="Personel Ara..." 
+              className="bg-[#0b0f17] border border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 w-full sm:w-64"
+            />
+          </div>
+
+          {requests.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-800/80 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <th className="py-3 px-4">Personel Adı / Unvan</th>
+                    <th className="py-3 px-4">Erişim Türü & Konum</th>
+                    <th className="py-3 px-4">Talep Tarihi</th>
+                    <th className="py-3 px-4">Mevcut Durum</th>
+                    <th className="py-3 px-4 text-right">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/50 text-sm">
+                  {requests.map((item) => (
+                    <tr key={item.id} className="hover:bg-slate-900/40 transition-colors">
+                      <td className="py-4 px-4 flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 text-sky-400 flex items-center justify-center font-bold text-sm">
+                          {item.initials}
                         </div>
-                        <span className={`rounded-full px-2.5 py-1 text-xs ${item.state === t.pending ? 'bg-amber-500/15 text-amber-300' : 'bg-emerald-500/15 text-emerald-300'}`}>
-                          {item.state}
+                        <div>
+                          <p className="font-semibold text-white">{item.name}</p>
+                          <p className="text-xs text-slate-400">{item.role}</p>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-slate-300">
+                        <span className="text-sky-400 font-medium">{item.zone}</span>
+                      </td>
+                      <td className="py-4 px-4 text-slate-400 text-xs">{item.time}</td>
+                      <td className="py-4 px-4">
+                        <span className="px-2.5 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold rounded-md">
+                          İŞLEM BEKLİYOR
                         </span>
-                      </div>
-                    </div>
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            onClick={() => handleApprove(item.id)}
+                            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg transition"
+                          >
+                            Onayla
+                          </button>
+                          <button
+                            onClick={() => handleDeny(item.id)}
+                            className="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold rounded-lg transition"
+                          >
+                            Reddet
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
                   ))}
-                </div>
-              </article>
+                </tbody>
+              </table>
             </div>
-          </div>
-        </section>
+          ) : (
+            <div className="py-12 text-center text-slate-400 space-y-2">
+              <div className="text-4xl">🛡️</div>
+              <p className="font-bold text-white text-base">Bekleyen erişim talebi bulunmamaktadır.</p>
+              <p className="text-xs text-slate-400">Tüm yetkilendirme istekleri güncel durumdadır.</p>
+            </div>
+          )}
+        </div>
+
       </div>
     </main>
   );
