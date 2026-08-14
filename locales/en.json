@@ -1,0 +1,15 @@
+{
+  "dashboard.title": "Dashboard",
+  "dashboard.subtitle": "Admin Panel / Dashboard",
+  "card.sqli": "SQLi Attacks",
+  "card.badbots": "Bad Bots",
+  "card.proxies": "Proxies",
+  "card.spammers": "Spammers",
+  "viewLogs": "VIEW LOGS →",
+  "threat.title": "Threat Statistics",
+  "overall": "Overall Statistics",
+  "account": "Account",
+  "logout": "Logout",
+  "navigation": "NAVIGATION",
+  "security": "SECURITY"
+}
