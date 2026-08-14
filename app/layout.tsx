@@ -1,6 +1,5 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import I18nProvider from '@/lib/i18n';
 
 export const metadata: Metadata = {
   title: 'Veridora',
@@ -14,11 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
-      <body>
-        <I18nProvider>
-          {children}
-        </I18nProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
